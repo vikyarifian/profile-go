@@ -13,6 +13,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	r.RequestURI = r.URL.String()
 
 	handler().ServeHTTP(w, r)
+
 }
 
 // building the fiber application
