@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"log"
-	"net"
 	"net/http"
 	"profile-go/routes"
 
@@ -39,10 +37,10 @@ func handler() http.HandlerFunc {
 	})
 
 	routes.WebRoutes(app)
-	listen, _ := net.Listen("tcp", ":6861")
-	// BulkUser()
-	// BulProduct()
-	log.Fatal(app.Listener(listen))
+	// listen, _ := net.Listen("tcp", ":443")
+	// // BulkUser()
+	// // BulProduct()
+	// log.Fatal(app.Listener(listen))
 
 	return adaptor.FiberApp(app)
 
