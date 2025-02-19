@@ -39,4 +39,5 @@ func handler() http.HandlerFunc {
 	})
 
 	return adaptor.FiberApp(app)
+
 }
