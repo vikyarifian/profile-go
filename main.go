@@ -3,11 +3,20 @@ package main
 import (
 	"log"
 	"net"
+	"os"
 	"profile-go/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/joho/godotenv"
 )
+
+func LoadEnv() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
 
 func main() {
 
@@ -17,7 +26,7 @@ func main() {
 
 	app.Use(logger.New())
 
-	app.Static("/assets", "./assets")
+	app.Static("assets", os.Getenv("APP_PATH")+"assets")
 
 	app.Use(func(c *fiber.Ctx) error {
 		c.Set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate")
@@ -29,8 +38,7 @@ func main() {
 
 	routes.WebRoutes(app)
 	listen, _ := net.Listen("tcp", ":6861")
-	// BulkUser()
-	// BulProduct()
+
 	log.Fatal(app.Listener(listen))
 
 }
